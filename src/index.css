@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  color: aliceblue !important;
+  font-family: monospace !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  font-weight: 300;
+}
