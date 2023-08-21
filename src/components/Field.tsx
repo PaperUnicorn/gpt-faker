@@ -1,10 +1,29 @@
-import { Form, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Form,
+  Row,
+  Col,
+  OverlayTrigger,
+  Tooltip,
+  Button,
+} from "react-bootstrap";
 
-const Field: React.FC = () => {
+export interface IField {
+  fieldIndex?: Number;
+  fieldName?: string;
+  fieldDescription?: string;
+  removeField?: Function;
+}
+
+const Field: React.FC<IField> = ({
+  fieldIndex,
+  fieldName,
+  fieldDescription,
+  removeField,
+}) => {
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
-        <Form.Control defaultValue="Field 1" />
+        <Form.Control defaultValue={fieldName || "Field"} />
       </Col>
       <Col sm="1">
         <Form.Select aria-label="Default select example">
@@ -30,6 +49,18 @@ const Field: React.FC = () => {
       </Col>
       <Col sm="1">
         <Form.Control defaultValue="" />
+      </Col>
+
+      <Col sm="2"></Col>
+
+      <Col sm="1">
+        <Button
+          onClick={() => {
+            removeField && removeField(fieldIndex);
+          }}
+        >
+          Remove
+        </Button>
       </Col>
     </Form.Group>
   );

@@ -1,14 +1,9 @@
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
-const Heading: React.FC = () => {
+const Heading: React.FC<{
+  addField: Function;
+}> = ({ addField }) => {
   return (
-    // <Row>
-    //   <Col md={1}>filename : </Col>
-    //   <Col>
-    //     <Form.Control size="sm" type="text" placeholder="Untitled" />
-    //   </Col>
-    // </Row>
-
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
         <Form.Control defaultValue="untitled" />
@@ -24,7 +19,7 @@ const Heading: React.FC = () => {
       </Col>
       <Col sm="3"></Col>
       <Col sm="1">
-        <Button>Add field</Button>
+        <Button onClick={() => addField()}>Add field</Button>
       </Col>
     </Form.Group>
   );
