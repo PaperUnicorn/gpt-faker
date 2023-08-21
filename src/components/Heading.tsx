@@ -1,4 +1,4 @@
-import { Col, Form, Row, Stack } from "react-bootstrap";
+import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
 const Heading: React.FC = () => {
   return (
@@ -10,11 +10,8 @@ const Heading: React.FC = () => {
     // </Row>
 
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-      <Form.Label column sm="1">
-        filename
-      </Form.Label>
       <Col sm="2">
-        <Form.Control readOnly defaultValue="email@example.com" />
+        <Form.Control defaultValue="untitled" />
       </Col>
       <Col sm="2">
         <Form.Control readOnly defaultValue="email@example.com" />
@@ -24,6 +21,10 @@ const Heading: React.FC = () => {
       </Col>
       <Col sm="2">
         <Form.Control readOnly defaultValue="email@example.com" />
+      </Col>
+      <Col sm="3"></Col>
+      <Col sm="1">
+        <Button>Add field</Button>
       </Col>
     </Form.Group>
   );
