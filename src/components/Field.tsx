@@ -8,22 +8,33 @@ import {
 } from "react-bootstrap";
 
 export interface IField {
-  fieldIndex?: Number;
+  fieldIndex?: string;
   fieldName?: string;
+  fieldValue?: string;
   fieldDescription?: string;
   removeField?: Function;
+  handleChange?: Function;
 }
 
 const Field: React.FC<IField> = ({
   fieldIndex,
   fieldName,
+  fieldValue,
   fieldDescription,
   removeField,
+  handleChange,
 }) => {
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
-        <Form.Control defaultValue={fieldName || "Field"} />
+        <Form.Control
+          name={fieldName}
+          defaultValue={fieldValue || "Field"}
+          onChange={(e) => {
+            console.log(e);
+            handleChange && handleChange(fieldIndex, e);
+          }}
+        />
       </Col>
       <Col sm="1">
         <Form.Select aria-label="Default select example">

@@ -2,25 +2,47 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import Heading from "../components/Heading";
 import Field, { IField } from "../components/Field";
+import { v4 as uuidv4 } from "uuid";
 
 const MainLayout: React.FC = () => {
   const [fields, setFields] = useState<IField[]>([
     {
-      fieldName: "field 1",
-      fieldIndex: 0,
+      fieldName: "",
+      fieldIndex: uuidv4(),
     },
   ]);
   const addField = () => {
-    const lastField = fields.length;
-    console.log(lastField);
-    setFields([...fields, { fieldIndex: lastField }]);
+    const rowId = uuidv4();
+    const newFields = [...fields];
+
+    newFields.push({
+      fieldDescription: "",
+      fieldName: "",
+      fieldIndex: rowId,
+    });
+    console.log(fields);
+    setFields(newFields);
   };
 
-  const removeField = (index: number) => {
-    const rows = [...fields];
-    rows.splice(index, 1);
+  const removeField = (index: string) => {
+    let rows = [...fields];
+    console.log(index);
+    rows = fields.filter((field) => {
+      console.log(field);
+      return field.fieldIndex !== index;
+    });
     console.log(rows);
     setFields(rows);
+  };
+
+  const handleChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = event.target;
+    const list: IField[] = [...fields];
+    list[index].fieldValue = value;
+    setFields(list);
   };
 
   return (
@@ -29,7 +51,12 @@ const MainLayout: React.FC = () => {
       {fields.map((data, index) => {
         const { fieldName } = data;
         return (
-          <Field key={index} fieldIndex={index} removeField={removeField} />
+          <Field
+            key={index}
+            fieldIndex={data.fieldIndex}
+            removeField={removeField}
+            handleChange={handleChange}
+          />
         );
       })}
     </Container>
