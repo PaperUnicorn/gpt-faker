@@ -28,10 +28,7 @@ const Field: React.FC<IField> = ({
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
         <Form.Control
-          name={fieldName}
-          defaultValue={fieldValue || "Field"}
           onChange={(e) => {
-            console.log(e);
             handleChange && handleChange(fieldIndex, e);
           }}
         />

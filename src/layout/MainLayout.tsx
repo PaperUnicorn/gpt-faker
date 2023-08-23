@@ -24,24 +24,26 @@ const MainLayout: React.FC = () => {
     setFields(newFields);
   };
 
-  const removeField = (index: string) => {
+  const removeField = (index: string | undefined) => {
     let rows = [...fields];
     console.log(index);
     rows = fields.filter((field) => {
-      console.log(field);
       return field.fieldIndex !== index;
     });
-    console.log(rows);
     setFields(rows);
   };
 
   const handleChange = (
-    index: number,
+    index: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = event.target;
     const list: IField[] = [...fields];
-    list[index].fieldValue = value;
+    list.find((e) => {
+      if (e.fieldIndex === index) {
+        e.fieldValue = value;
+      }
+    });
     setFields(list);
   };
 
@@ -52,9 +54,9 @@ const MainLayout: React.FC = () => {
         const { fieldName } = data;
         return (
           <Field
-            key={index}
+            key={data.fieldIndex}
             fieldIndex={data.fieldIndex}
-            removeField={removeField}
+            removeField={() => removeField(data.fieldIndex)}
             handleChange={handleChange}
           />
         );
