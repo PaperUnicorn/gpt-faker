@@ -50,6 +50,7 @@ const MainLayout: React.FC = () => {
   return (
     <Container style={{ padding: "2rem 2.8rem" }} fluid={true}>
       <Heading addField={addField} />
+      <hr></hr>
       {fields.map((data, index) => {
         const { fieldName } = data;
         return (

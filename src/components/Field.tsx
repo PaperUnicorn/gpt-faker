@@ -7,6 +7,8 @@ import {
   Button,
 } from "react-bootstrap";
 
+import { TrashFill } from "react-bootstrap-icons";
+
 export interface IField {
   fieldIndex?: string;
   fieldName?: string;
@@ -61,13 +63,13 @@ const Field: React.FC<IField> = ({
 
       <Col sm="2"></Col>
 
-      <Col sm="1">
+      <Col sm="1" style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           onClick={() => {
             removeField && removeField(fieldIndex);
           }}
         >
-          Remove
+          <TrashFill />
         </Button>
       </Col>
     </Form.Group>

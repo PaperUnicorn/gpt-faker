@@ -1,5 +1,12 @@
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
+import {
+  PlusCircleFill,
+  Download,
+  EyeFill,
+  ArchiveFill,
+} from "react-bootstrap-icons";
+
 const Heading: React.FC<{
   addField: Function;
 }> = ({ addField }) => {
@@ -8,18 +15,38 @@ const Heading: React.FC<{
       <Col sm="2">
         <Form.Control defaultValue="untitled" />
       </Col>
-      <Col sm="2">
-        <Form.Control readOnly defaultValue="email@example.com" />
-      </Col>
-      <Col sm="2">
-        <Form.Control readOnly defaultValue="email@example.com" />
-      </Col>
-      <Col sm="2">
-        <Form.Control readOnly defaultValue="email@example.com" />
-      </Col>
-      <Col sm="3"></Col>
       <Col sm="1">
-        <Button onClick={() => addField()}>Add field</Button>
+        <Form.Control readOnly />
+      </Col>
+      <Col sm="1">
+        <Form.Control readOnly />
+      </Col>
+      <Col sm="1">
+        <Form.Control readOnly />
+      </Col>
+      <Col sm="4"></Col>
+      <Col
+        sm="2"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Button onClick={() => addField()}>
+          <Download />
+        </Button>
+        <Button onClick={() => addField()}>
+          <EyeFill />
+        </Button>
+        <Button onClick={() => addField()}>
+          <ArchiveFill />
+        </Button>
+      </Col>
+      <Col sm="1" style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button onClick={() => addField()}>
+          <PlusCircleFill />
+        </Button>
       </Col>
     </Form.Group>
   );
