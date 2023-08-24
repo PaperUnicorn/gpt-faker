@@ -12,8 +12,9 @@ import { TrashFill } from "react-bootstrap-icons";
 export interface IField {
   fieldIndex?: string;
   fieldName?: string;
-  fieldValue?: string;
+  fieldType?: string;
   fieldDescription?: string;
+  fieldCount?: number;
   removeField?: Function;
   handleChange?: Function;
 }
@@ -21,8 +22,9 @@ export interface IField {
 const Field: React.FC<IField> = ({
   fieldIndex,
   fieldName,
-  fieldValue,
+  fieldType,
   fieldDescription,
+  fieldCount,
   removeField,
   handleChange,
 }) => {
@@ -33,14 +35,21 @@ const Field: React.FC<IField> = ({
           onChange={(e) => {
             handleChange && handleChange(fieldIndex, e);
           }}
+          name="name"
         />
       </Col>
       <Col sm="1">
-        <Form.Select aria-label="Default select example">
-          <option value="1">String</option>
-          <option value="2">Number</option>
-          <option value="3">Object</option>
-          <option value="3">Array</option>
+        <Form.Select
+          aria-label="Default select example"
+          name="type"
+          onChange={(e) => {
+            handleChange && handleChange(fieldIndex, e);
+          }}
+        >
+          <option value="string">String</option>
+          <option value="number">Number</option>
+          <option value="object">Object</option>
+          <option value="array">Array</option>
         </Form.Select>
       </Col>
       <Col sm="5">
@@ -54,11 +63,24 @@ const Field: React.FC<IField> = ({
             </Tooltip>
           }
         >
-          <Form.Control defaultValue="" aria-describedby="description-block" />
+          <Form.Control
+            defaultValue=""
+            aria-describedby="description-block"
+            name="description"
+            onChange={(e) => {
+              handleChange && handleChange(fieldIndex, e);
+            }}
+          />
         </OverlayTrigger>
       </Col>
       <Col sm="1">
-        <Form.Control defaultValue="" />
+        <Form.Control
+          defaultValue=""
+          name="count"
+          onChange={(e) => {
+            handleChange && handleChange(fieldIndex, e);
+          }}
+        />
       </Col>
 
       <Col sm="2"></Col>

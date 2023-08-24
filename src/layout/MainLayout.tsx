@@ -26,7 +26,6 @@ const MainLayout: React.FC = () => {
 
   const removeField = (index: string | undefined) => {
     let rows = [...fields];
-    console.log(index);
     rows = fields.filter((field) => {
       return field.fieldIndex !== index;
     });
@@ -38,10 +37,24 @@ const MainLayout: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = event.target;
+    console.log(name);
     const list: IField[] = [...fields];
     list.find((e) => {
       if (e.fieldIndex === index) {
-        e.fieldValue = value;
+        switch (name) {
+          case "name":
+            e.fieldName = value;
+            break;
+          case "type":
+            e.fieldType = value;
+            break;
+          case "description":
+            e.fieldDescription = value;
+            break;
+          case "count":
+            e.fieldCount = +value;
+            break;
+        }
       }
     });
     setFields(list);
