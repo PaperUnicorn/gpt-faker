@@ -6,6 +6,7 @@ import {
   EyeFill,
   ArchiveFill,
 } from "react-bootstrap-icons";
+import { getRandomValueFromDescription } from "../api/OpenAI.api";
 
 const Heading: React.FC<{
   addField: Function;
@@ -39,7 +40,9 @@ const Heading: React.FC<{
         <Button onClick={() => addField()}>
           <EyeFill />
         </Button>
-        <Button onClick={() => addField()}>
+        <Button
+          onClick={() => getRandomValueFromDescription("phone numbers", 1)}
+        >
           <ArchiveFill />
         </Button>
       </Col>
