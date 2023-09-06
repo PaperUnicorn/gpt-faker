@@ -41,7 +41,9 @@ const Heading: React.FC<{
           <EyeFill />
         </Button>
         <Button
-          onClick={() => getRandomValueFromDescription("phone numbers", 1)}
+          onClick={() =>
+            getRandomValueFromDescription("indian phone number", 1)
+          }
         >
           <ArchiveFill />
         </Button>
