@@ -10,7 +10,8 @@ import { getRandomValueFromDescription } from "../api/OpenAI.api";
 
 const Heading: React.FC<{
   addField: Function;
-}> = ({ addField }) => {
+  generateFile: Function;
+}> = ({ addField, generateFile }) => {
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
@@ -40,11 +41,7 @@ const Heading: React.FC<{
         <Button onClick={() => addField()}>
           <EyeFill />
         </Button>
-        <Button
-          onClick={() =>
-            getRandomValueFromDescription("indian phone number", 1)
-          }
-        >
+        <Button onClick={() => generateFile()}>
           <ArchiveFill />
         </Button>
       </Col>

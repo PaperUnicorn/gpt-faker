@@ -21,15 +21,14 @@ export const getRandomValueFromDescription = async (description: string, count: 
         temperature: TEMPERATURE
     }
 
-    console.log(request)
+    
     try{
-        
         const { data : {choices} } = await axios.post<ChatCompletionResponse>(OPEN_AI_BASE_URL+"/completions",request, {
             headers:{
                 Authorization: `Bearer ${process.env.REACT_APP_OPEN_AI_TOKEN}`
             }  
         })
-        console.log(choices[0].text)
+       return choices[0].text
     } catch(err){
         console.log(err)
     }

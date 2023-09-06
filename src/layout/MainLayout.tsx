@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import Heading from "../components/Heading";
 import Field, { IField } from "../components/Field";
 import { v4 as uuidv4 } from "uuid";
+import { getRandomValueFromDescription } from "../api/OpenAI.api";
 
 const MainLayout: React.FC = () => {
   const [fields, setFields] = useState<IField[]>([
@@ -30,6 +31,19 @@ const MainLayout: React.FC = () => {
       return field.fieldIndex !== index;
     });
     setFields(rows);
+  };
+
+  const generateFile = async (fields: IField[]) => {
+    const result: any = {};
+    for (var field of fields) {
+      const value = await getRandomValueFromDescription(
+        field.fieldDescription || field.fieldName || "",
+        field.fieldCount || 1
+      );
+      console.log(value);
+      result[field.fieldName || "asdasd"] = value;
+    }
+    console.log(result);
   };
 
   const handleChange = (
@@ -62,7 +76,12 @@ const MainLayout: React.FC = () => {
 
   return (
     <Container style={{ padding: "2rem 2.8rem" }} fluid={true}>
-      <Heading addField={addField} />
+      <Heading
+        addField={addField}
+        generateFile={() => {
+          generateFile(fields);
+        }}
+      />
       <hr></hr>
       {fields.map((data, index) => {
         const { fieldName } = data;
