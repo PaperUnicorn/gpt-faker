@@ -4,8 +4,20 @@ import Heading from "../components/Heading";
 import Field, { IField } from "../components/Field";
 import { v4 as uuidv4 } from "uuid";
 import { getRandomValueFromDescription } from "../api/OpenAI.api";
+import FileModal from "../components/FileModal";
 
 const MainLayout: React.FC = () => {
+  const [show, setShow] = useState(false);
+  const openModal = () => {
+    setShow(true);
+  };
+  const closeModal = () => {
+    setShow(false);
+  };
+
+  const [generatedData, setGeneratedData] = useState<string>("");
+  const [modalTitle, setModalTitle] = useState("title");
+
   const [fields, setFields] = useState<IField[]>([
     {
       fieldName: "",
@@ -40,10 +52,12 @@ const MainLayout: React.FC = () => {
         field.fieldDescription || field.fieldName || "",
         field.fieldCount || 1
       );
-      console.log(value);
-      result[field.fieldName || "asdasd"] = value;
+
+      result[field.fieldName || "field"] = value;
     }
-    console.log(result);
+
+    openModal();
+    setGeneratedData(JSON.stringify(result));
   };
 
   const handleChange = (
@@ -81,6 +95,12 @@ const MainLayout: React.FC = () => {
         generateFile={() => {
           generateFile(fields);
         }}
+      />
+      <FileModal
+        show={show}
+        handleClose={closeModal}
+        title={modalTitle}
+        data={generatedData}
       />
       <hr></hr>
       {fields.map((data, index) => {

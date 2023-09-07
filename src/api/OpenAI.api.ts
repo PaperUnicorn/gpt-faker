@@ -12,23 +12,29 @@ interface ChatCompletionResponse {
     choices: ChatCompletionChoices[]
 }
 
+const cleanString = (string: string) =>{
+    if(string.includes("\n\n")){
+        //needs more stepped cleaning functions
+        const result = string.replaceAll("\n", "")
+        return result;
+    }
+    return string
+}
+
 export const getRandomValueFromDescription = async (description: string, count: number = 1 ) => {
-    console.log("clicked")
     const request = {
         model: GPT_MODEL,
         prompt: `list ${count} random ${description}`,
         max_tokens: MAX_TOKENS,
         temperature: TEMPERATURE
     }
-
-    
     try{
         const { data : {choices} } = await axios.post<ChatCompletionResponse>(OPEN_AI_BASE_URL+"/completions",request, {
             headers:{
                 Authorization: `Bearer ${process.env.REACT_APP_OPEN_AI_TOKEN}`
             }  
         })
-       return choices[0].text
+       return cleanString(choices[0].text)
     } catch(err){
         console.log(err)
     }
