@@ -7,11 +7,13 @@ const FileModal: React.FC<{
   data: any;
 }> = ({ show, handleClose, title, data }) => {
   return (
-    <Modal show={show} onHide={() => handleClose()}>
+    <Modal show={show}>
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{data}</Modal.Body>
+      <Modal.Body style={{ background: "black" }}>
+        <pre>{data}</pre>
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => handleClose()}>
           Close

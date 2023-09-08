@@ -57,7 +57,8 @@ const MainLayout: React.FC = () => {
     }
 
     openModal();
-    setGeneratedData(JSON.stringify(result));
+
+    setGeneratedData(JSON.stringify(result, null, "\t"));
   };
 
   const handleChange = (
