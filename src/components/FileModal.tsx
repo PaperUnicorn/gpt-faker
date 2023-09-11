@@ -6,6 +6,16 @@ const FileModal: React.FC<{
   title: string;
   data: any;
 }> = ({ show, handleClose, title, data }) => {
+  const exportData = () => {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      data
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = title + ".json";
+    link.click();
+  };
+
   return (
     <Modal show={show}>
       <Modal.Header closeButton>
@@ -18,8 +28,8 @@ const FileModal: React.FC<{
         <Button variant="secondary" onClick={() => handleClose()}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => handleClose()}>
-          Save Changes
+        <Button variant="primary" onClick={() => exportData()}>
+          Save to file
         </Button>
       </Modal.Footer>
     </Modal>

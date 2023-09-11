@@ -6,16 +6,20 @@ import {
   EyeFill,
   ArchiveFill,
 } from "react-bootstrap-icons";
-import { getRandomValueFromDescription } from "../api/OpenAI.api";
 
 const Heading: React.FC<{
+  filename: string;
+  setFilename: Function;
   addField: Function;
   generateFile: Function;
-}> = ({ addField, generateFile }) => {
+}> = ({ filename, setFilename, addField, generateFile }) => {
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
-        <Form.Control defaultValue="untitled" />
+        <Form.Control
+          defaultValue={filename}
+          onChange={(e) => setFilename(e.target.value)}
+        />
       </Col>
       <Col sm="1">
         <Form.Control readOnly />

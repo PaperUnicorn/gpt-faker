@@ -17,6 +17,7 @@ const MainLayout: React.FC = () => {
 
   const [generatedData, setGeneratedData] = useState<string>("");
   const [modalTitle, setModalTitle] = useState("title");
+  const [filename, setFilename] = useState("untitled");
 
   const [fields, setFields] = useState<IField[]>([
     {
@@ -55,7 +56,7 @@ const MainLayout: React.FC = () => {
 
       result[field.fieldName || "field"] = value;
     }
-
+    setModalTitle(filename);
     openModal();
 
     setGeneratedData(JSON.stringify(result, null, "\t"));
@@ -66,7 +67,6 @@ const MainLayout: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = event.target;
-    console.log(name);
     const list: IField[] = [...fields];
     list.find((e) => {
       if (e.fieldIndex === index) {
@@ -92,6 +92,8 @@ const MainLayout: React.FC = () => {
   return (
     <Container style={{ padding: "2rem 2.8rem" }} fluid={true}>
       <Heading
+        filename={filename}
+        setFilename={setFilename}
         addField={addField}
         generateFile={() => {
           generateFile(fields);
