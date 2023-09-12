@@ -18,7 +18,7 @@ const FileModal: React.FC<{
 
   return (
     <Modal show={show}>
-      <Modal.Header closeButton>
+      <Modal.Header style={{ background: "grey" }} closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ background: "black" }}>
