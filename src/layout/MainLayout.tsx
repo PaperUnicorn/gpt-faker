@@ -34,7 +34,6 @@ const MainLayout: React.FC = () => {
       fieldName: "",
       fieldIndex: rowId,
     });
-    console.log(fields);
     setFields(newFields);
   };
 
@@ -98,6 +97,7 @@ const MainLayout: React.FC = () => {
         generateFile={() => {
           generateFile(fields);
         }}
+        setFields={setFields}
       />
       <FileModal
         show={show}
@@ -106,17 +106,18 @@ const MainLayout: React.FC = () => {
         data={generatedData}
       />
       <hr></hr>
-      {fields.map((data, index) => {
-        const { fieldName } = data;
-        return (
-          <Field
-            key={data.fieldIndex}
-            fieldIndex={data.fieldIndex}
-            removeField={() => removeField(data.fieldIndex)}
-            handleChange={handleChange}
-          />
-        );
-      })}
+      {fields &&
+        fields.map((data, index) => {
+          const { fieldName } = data;
+          return (
+            <Field
+              key={data.fieldIndex}
+              fieldIndex={data.fieldIndex}
+              removeField={() => removeField(data.fieldIndex)}
+              handleChange={handleChange}
+            />
+          );
+        })}
     </Container>
   );
 };

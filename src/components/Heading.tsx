@@ -1,3 +1,5 @@
+import { load } from "js-yaml";
+import { useRef } from "react";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
 import {
@@ -6,13 +8,34 @@ import {
   EyeFill,
   ArchiveFill,
 } from "react-bootstrap-icons";
+import { IField } from "./Field";
 
+interface Preset {
+  fields: IField[];
+}
 const Heading: React.FC<{
   filename: string;
   setFilename: Function;
   addField: Function;
   generateFile: Function;
-}> = ({ filename, setFilename, addField, generateFile }) => {
+  setFields: Function;
+}> = ({ filename, setFilename, addField, generateFile, setFields }) => {
+  const inputFile = useRef<HTMLInputElement | null>(null);
+  const loadPreset = () => {
+    inputFile.current?.click();
+  };
+  const fileSelected = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    const reader = new FileReader();
+    const file = event?.target?.files;
+    reader.onload = async (e) => {
+      const text: string = e.target?.result! as string;
+      const fields: any = load(text) as Preset;
+      console.log(fields.fields);
+      setFields(fields.fields);
+    };
+    const read = reader.readAsText(event?.target?.files[0]);
+  };
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
@@ -39,13 +62,20 @@ const Heading: React.FC<{
           justifyContent: "space-evenly",
         }}
       >
-        <Button onClick={() => addField()}>
+        <input
+          type="file"
+          id="file"
+          ref={inputFile}
+          style={{ display: "none" }}
+          onChange={(e) => fileSelected(e)}
+        />
+        <Button onClick={() => generateFile()}>
           <Download />
         </Button>
         <Button onClick={() => addField()}>
           <EyeFill />
         </Button>
-        <Button onClick={() => generateFile()}>
+        <Button onClick={() => loadPreset()}>
           <ArchiveFill />
         </Button>
       </Col>

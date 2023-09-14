@@ -1,0 +1,11 @@
+fields:
+  - fieldIndex: 5
+    fieldName: "phones"
+    fieldType: "string"
+    fieldDescription: "indian phone numbers"
+    fieldCount: 1
+  - fieldIndex: 4
+    fieldName: "phones"
+    fieldType: "string"
+    fieldDescription: "indian phone numbers"
+    fieldCount: 1
