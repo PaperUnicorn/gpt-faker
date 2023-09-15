@@ -107,12 +107,11 @@ const MainLayout: React.FC = () => {
       />
       <hr></hr>
       {fields &&
-        fields.map((data, index) => {
-          const { fieldName } = data;
+        fields.map((data) => {
           return (
             <Field
               key={data.fieldIndex}
-              fieldIndex={data.fieldIndex}
+              data={data}
               removeField={() => removeField(data.fieldIndex)}
               handleChange={handleChange}
             />

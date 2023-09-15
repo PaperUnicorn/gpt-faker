@@ -5,7 +5,7 @@ fields:
     fieldDescription: "indian phone numbers"
     fieldCount: 1
   - fieldIndex: 4
-    fieldName: "phones"
-    fieldType: "string"
-    fieldDescription: "indian phone numbers"
+    fieldName: "address"
+    fieldType: "array"
+    fieldDescription: "address in mumbai"
     fieldCount: 1

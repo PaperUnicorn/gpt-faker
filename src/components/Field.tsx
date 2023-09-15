@@ -9,25 +9,27 @@ import {
 
 import { TrashFill } from "react-bootstrap-icons";
 
+export interface IFieldWrapper {
+  data: IField;
+  removeField?: Function;
+  handleChange?: Function;
+}
+
 export interface IField {
   fieldIndex?: string;
   fieldName?: string;
   fieldType?: string;
   fieldDescription?: string;
   fieldCount?: number;
-  removeField?: Function;
-  handleChange?: Function;
 }
 
-const Field: React.FC<IField> = ({
-  fieldIndex,
-  fieldName,
-  fieldType,
-  fieldDescription,
-  fieldCount,
+const Field: React.FC<IFieldWrapper> = ({
+  data,
   removeField,
   handleChange,
 }) => {
+  const { fieldIndex, fieldName, fieldType, fieldDescription, fieldCount } =
+    data;
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
@@ -36,6 +38,7 @@ const Field: React.FC<IField> = ({
             handleChange && handleChange(fieldIndex, e);
           }}
           name="name"
+          defaultValue={fieldName}
         />
       </Col>
       <Col sm="1">
@@ -45,6 +48,7 @@ const Field: React.FC<IField> = ({
           onChange={(e) => {
             handleChange && handleChange(fieldIndex, e);
           }}
+          defaultValue={fieldType}
         >
           <option value="string">String</option>
           <option value="number">Number</option>
@@ -64,7 +68,7 @@ const Field: React.FC<IField> = ({
           }
         >
           <Form.Control
-            defaultValue=""
+            defaultValue={fieldDescription}
             aria-describedby="description-block"
             name="description"
             onChange={(e) => {
