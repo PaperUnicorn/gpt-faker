@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Toast, ToastContainer } from "react-bootstrap";
 import Heading from "../components/Heading";
 import Field, { IField } from "../components/Field";
 import { v4 as uuidv4 } from "uuid";
@@ -8,6 +8,7 @@ import FileModal from "../components/FileModal";
 
 const MainLayout: React.FC = () => {
   const [show, setShow] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const openModal = () => {
     setShow(true);
   };
@@ -58,7 +59,9 @@ const MainLayout: React.FC = () => {
     setModalTitle(filename);
     openModal();
 
-    setGeneratedData(JSON.stringify(result, null, "\t"));
+    if (modalTitle == "untitled") setShowToast(true);
+
+    // setGeneratedData(JSON.stringify(result, null, "\t"));
   };
 
   const handleChange = (
@@ -117,6 +120,24 @@ const MainLayout: React.FC = () => {
             />
           );
         })}
+      <ToastContainer
+        className="p-3"
+        position={"bottom-start"}
+        style={{ zIndex: 1 }}
+      >
+        <Toast
+          show={showToast}
+          onClose={() => setShowToast(false)}
+          delay={3000}
+          autohide
+          bg={"warning"}
+        >
+          <Toast.Header>
+            <strong className="me-auto">File name</strong>
+          </Toast.Header>
+          <Toast.Body>Good idea to change filename !</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Container>
   );
 };
