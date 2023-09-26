@@ -19,7 +19,7 @@ const MainLayout: React.FC = () => {
   const [generatedData, setGeneratedData] = useState<string>("");
   const [modalTitle, setModalTitle] = useState("title");
   const [filename, setFilename] = useState("untitled");
-
+  const [rowCount, setRowCount] = useState(1);
   const [fields, setFields] = useState<IField[]>([
     {
       fieldName: "",
@@ -46,22 +46,25 @@ const MainLayout: React.FC = () => {
     setFields(rows);
   };
 
-  const generateFile = async (fields: IField[]) => {
-    const result: any = {};
-    for (var field of fields) {
-      const value = await getRandomValueFromDescription(
-        field.fieldDescription || field.fieldName || "",
-        field.fieldCount || 1
-      );
-
-      result[field.fieldName || "field"] = value;
+  const generateFile = async (fields: IField[], rowCount: number) => {
+    const result: any = [];
+    for (var i = 0; i < rowCount; i++) {
+      for (var field of fields) {
+        const value = await getRandomValueFromDescription(
+          field.fieldDescription || field.fieldName || "",
+          field.fieldCount || 1
+        );
+        const { fieldName } = field;
+        result.push({
+          [fieldName || "field"]: value,
+        });
+      }
     }
     setModalTitle(filename);
     openModal();
-
     if (modalTitle == "untitled") setShowToast(true);
 
-    // setGeneratedData(JSON.stringify(result, null, "\t"));
+    setGeneratedData(JSON.stringify(result, null, "\t"));
   };
 
   const handleChange = (
@@ -96,9 +99,11 @@ const MainLayout: React.FC = () => {
       <Heading
         filename={filename}
         setFilename={setFilename}
+        rowCount={rowCount}
+        setRowCount={setRowCount}
         addField={addField}
         generateFile={() => {
-          generateFile(fields);
+          generateFile(fields, rowCount);
         }}
         setFields={setFields}
       />

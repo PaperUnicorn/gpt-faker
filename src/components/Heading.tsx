@@ -1,6 +1,6 @@
 import { load } from "js-yaml";
 import { useRef } from "react";
-import { Button, Col, Form, Row, Stack } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
 import {
   PlusCircleFill,
@@ -16,10 +16,20 @@ interface Preset {
 const Heading: React.FC<{
   filename: string;
   setFilename: Function;
+  rowCount: number;
+  setRowCount: Function;
   addField: Function;
   generateFile: Function;
   setFields: Function;
-}> = ({ filename, setFilename, addField, generateFile, setFields }) => {
+}> = ({
+  filename,
+  setFilename,
+  rowCount,
+  setRowCount,
+  addField,
+  generateFile,
+  setFields,
+}) => {
   const inputFile = useRef<HTMLInputElement | null>(null);
   const loadPreset = () => {
     inputFile.current?.click();
@@ -45,7 +55,10 @@ const Heading: React.FC<{
         />
       </Col>
       <Col sm="1">
-        <Form.Control readOnly />
+        <Form.Control
+          defaultValue={rowCount}
+          onChange={(e) => setRowCount(e.target.value)}
+        />
       </Col>
       <Col sm="1">
         <Form.Control readOnly />
