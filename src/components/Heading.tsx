@@ -1,6 +1,6 @@
 import { load } from "js-yaml";
 import { useRef } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Badge, Button, Col, Form, Row } from "react-bootstrap";
 
 import {
   PlusCircleFill,
@@ -61,7 +61,9 @@ const Heading: React.FC<{
         />
       </Col>
       <Col sm="1">
-        <Form.Control readOnly />
+        <h3>
+          <Badge bg="secondary">JSON</Badge>
+        </h3>
       </Col>
       <Col sm="1">
         <Form.Control readOnly />

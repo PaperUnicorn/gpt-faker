@@ -5,6 +5,7 @@ import Field, { IField } from "../components/Field";
 import { v4 as uuidv4 } from "uuid";
 import { getRandomValueFromDescription } from "../api/OpenAI.api";
 import FileModal from "../components/FileModal";
+import CustomSpinner from "../components/Spinner";
 
 const MainLayout: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -15,7 +16,7 @@ const MainLayout: React.FC = () => {
   const closeModal = () => {
     setShow(false);
   };
-
+  const [loading, setLoading] = useState(false);
   const [generatedData, setGeneratedData] = useState<string>("");
   const [modalTitle, setModalTitle] = useState("title");
   const [filename, setFilename] = useState("untitled");
@@ -48,6 +49,7 @@ const MainLayout: React.FC = () => {
 
   const generateFile = async (fields: IField[], rowCount: number) => {
     const result: any = [];
+    setLoading(true);
     for (var i = 0; i < rowCount; i++) {
       for (var field of fields) {
         const value = await getRandomValueFromDescription(
@@ -60,6 +62,7 @@ const MainLayout: React.FC = () => {
         });
       }
     }
+    setLoading(false);
     setModalTitle(filename);
     openModal();
     if (modalTitle == "untitled") setShowToast(true);
@@ -96,6 +99,8 @@ const MainLayout: React.FC = () => {
 
   return (
     <Container style={{ padding: "2rem 2.8rem" }} fluid={true}>
+      {loading && <CustomSpinner />}
+
       <Heading
         filename={filename}
         setFilename={setFilename}
