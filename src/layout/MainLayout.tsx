@@ -52,14 +52,16 @@ const MainLayout: React.FC = () => {
     setLoading(true);
     for (var i = 0; i < rowCount; i++) {
       for (var field of fields) {
-        const value = await getRandomValueFromDescription(
-          field.fieldDescription || field.fieldName || "",
-          field.fieldCount || 1
-        );
-        const { fieldName } = field;
-        result.push({
-          [fieldName || "field"]: value,
-        });
+        if (field.fieldName !== "" || undefined) {
+          const value = await getRandomValueFromDescription(
+            field.fieldDescription || field.fieldName || "",
+            field.fieldCount || 1
+          );
+          const { fieldName } = field;
+          result.push({
+            [fieldName || "field"]: value,
+          });
+        }
       }
     }
     setLoading(false);
