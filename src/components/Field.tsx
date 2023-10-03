@@ -33,13 +33,19 @@ const Field: React.FC<IFieldWrapper> = ({
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
-        <Form.Control
-          onChange={(e) => {
-            handleChange && handleChange(fieldIndex, e);
-          }}
-          name="name"
-          defaultValue={fieldName}
-        />
+        <OverlayTrigger
+          placement="right"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">field name</Tooltip>}
+        >
+          <Form.Control
+            onChange={(e) => {
+              handleChange && handleChange(fieldIndex, e);
+            }}
+            name="name"
+            defaultValue={fieldName}
+          />
+        </OverlayTrigger>
       </Col>
       <Col sm="1">
         <Form.Select
@@ -90,13 +96,19 @@ const Field: React.FC<IFieldWrapper> = ({
       <Col sm="2"></Col>
 
       <Col sm="1" style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          onClick={() => {
-            removeField && removeField(fieldIndex);
-          }}
+        <OverlayTrigger
+          placement="left"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">delete field</Tooltip>}
         >
-          <TrashFill />
-        </Button>
+          <Button
+            onClick={() => {
+              removeField && removeField(fieldIndex);
+            }}
+          >
+            <TrashFill />
+          </Button>
+        </OverlayTrigger>
       </Col>
     </Form.Group>
   );

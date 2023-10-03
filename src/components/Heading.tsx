@@ -1,6 +1,14 @@
 import { load } from "js-yaml";
 import { useRef } from "react";
-import { Badge, Button, Col, Form, Row } from "react-bootstrap";
+import {
+  Badge,
+  Button,
+  Col,
+  Form,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from "react-bootstrap";
 
 import {
   PlusCircleFill,
@@ -49,16 +57,28 @@ const Heading: React.FC<{
   return (
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
       <Col sm="2">
-        <Form.Control
-          defaultValue={filename}
-          onChange={(e) => setFilename(e.target.value)}
-        />
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">filename</Tooltip>}
+        >
+          <Form.Control
+            defaultValue={filename}
+            onChange={(e) => setFilename(e.target.value)}
+          />
+        </OverlayTrigger>
       </Col>
       <Col sm="1">
-        <Form.Control
-          defaultValue={rowCount}
-          onChange={(e) => setRowCount(e.target.value)}
-        />
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">row count</Tooltip>}
+        >
+          <Form.Control
+            defaultValue={rowCount}
+            onChange={(e) => setRowCount(e.target.value)}
+          />
+        </OverlayTrigger>
       </Col>
       <Col sm="1">
         <h3>
@@ -84,20 +104,44 @@ const Heading: React.FC<{
           style={{ display: "none" }}
           onChange={(e) => fileSelected(e)}
         />
-        <Button onClick={() => generateFile()}>
-          <Download />
-        </Button>
-        <Button onClick={() => addField()}>
-          <EyeFill />
-        </Button>
-        <Button onClick={() => loadPreset()}>
-          <ArchiveFill />
-        </Button>
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">generate</Tooltip>}
+        >
+          <Button onClick={() => generateFile()}>
+            <Download />
+          </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">view</Tooltip>}
+        >
+          <Button onClick={() => addField()}>
+            <EyeFill />
+          </Button>
+        </OverlayTrigger>
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">load preset</Tooltip>}
+        >
+          <Button onClick={() => loadPreset()}>
+            <ArchiveFill />
+          </Button>
+        </OverlayTrigger>
       </Col>
       <Col sm="1" style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button onClick={() => addField()}>
-          <PlusCircleFill />
-        </Button>
+        <OverlayTrigger
+          placement="bottom"
+          delay={{ show: 250, hide: 400 }}
+          overlay={<Tooltip id="button-tooltip">add field</Tooltip>}
+        >
+          <Button onClick={() => addField()}>
+            <PlusCircleFill />
+          </Button>
+        </OverlayTrigger>
       </Col>
     </Form.Group>
   );
