@@ -7,7 +7,7 @@ import {
   Button,
 } from "react-bootstrap";
 
-import { TrashFill } from "react-bootstrap-icons";
+import { PlusCircleFill, TrashFill } from "react-bootstrap-icons";
 
 export interface IFieldWrapper {
   data: IField;
@@ -84,16 +84,34 @@ const Field: React.FC<IFieldWrapper> = ({
         </OverlayTrigger>
       </Col>
       <Col sm="1">
-        <Form.Control
-          defaultValue=""
-          name="count"
-          onChange={(e) => {
-            handleChange && handleChange(fieldIndex, e);
-          }}
-        />
+        {fieldType === "array" ? (
+          <Form.Control
+            defaultValue=""
+            name="count"
+            onChange={(e) => {
+              handleChange && handleChange(fieldIndex, e);
+            }}
+          />
+        ) : (
+          <p></p>
+        )}
       </Col>
 
-      <Col sm="2"></Col>
+      <Col sm="2">
+        {fieldType === "object" ? (
+          <OverlayTrigger
+            placement="left"
+            delay={{ show: 250, hide: 400 }}
+            overlay={<Tooltip id="button-tooltip">add subfield</Tooltip>}
+          >
+            <Button onClick={() => {}}>
+              <PlusCircleFill />
+            </Button>
+          </OverlayTrigger>
+        ) : (
+          <p></p>
+        )}
+      </Col>
 
       <Col sm="1" style={{ display: "flex", justifyContent: "flex-end" }}>
         <OverlayTrigger
