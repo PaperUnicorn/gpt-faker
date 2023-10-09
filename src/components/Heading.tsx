@@ -1,12 +1,14 @@
 import { load } from "js-yaml";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Badge,
   Button,
+  ButtonGroup,
   Col,
   Form,
   OverlayTrigger,
   Row,
+  ToggleButton,
   Tooltip,
 } from "react-bootstrap";
 
@@ -39,6 +41,7 @@ const Heading: React.FC<{
   setFields,
 }) => {
   const inputFile = useRef<HTMLInputElement | null>(null);
+  const [checked, setChecked] = useState(false);
   const loadPreset = () => {
     inputFile.current?.click();
   };
@@ -81,9 +84,28 @@ const Heading: React.FC<{
         </OverlayTrigger>
       </Col>
       <Col sm="1">
-        <h3>
-          <Badge bg="secondary">JSON</Badge>
-        </h3>
+        <ButtonGroup>
+          <ToggleButton
+            id="toggle-check-json"
+            type="checkbox"
+            variant="secondary"
+            checked={checked}
+            value="json"
+            onChange={(e) => setChecked(true)}
+          >
+            JSON
+          </ToggleButton>
+          <ToggleButton
+            id="toggle-check-csv"
+            type="checkbox"
+            variant="secondary"
+            checked={!checked}
+            value="csv"
+            onChange={(e) => setChecked(false)}
+          >
+            CSV
+          </ToggleButton>
+        </ButtonGroup>
       </Col>
       <Col sm="1">
         <Form.Control readOnly />
